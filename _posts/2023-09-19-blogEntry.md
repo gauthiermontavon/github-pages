@@ -29,3 +29,22 @@ Some of the chipset supported by Kali Linux include:
 L'un des meilleurs chipsets pour le hacking:  Atheros AR9271
 
 
+### Installation drivers sous Kali
+#### Installing kernel linux header
+with apt
+update repos
+sudo apt-get update
+sudo apt-get dist-upgrade (take over 15-20 minutes)
+reboot and install kernel linux headers
+sudo apt-get install –y linux-headers-$(uname -r)
+
+####Generating and installing driver
+
+http://linuxwireless.sipsolutions.net/en/users/Download/__v115.html
+download archive compat-wireless
+generate your driver
+./scripts/driver-select atheros (example for atheros)
+make
+sudo make install
+
+
