@@ -38,7 +38,7 @@ sudo apt-get dist-upgrade (take over 15-20 minutes)
 reboot and install kernel linux headers
 sudo apt-get install –y linux-headers-$(uname -r)
 
-####Generating and installing driver
+#### Generating and installing driver
 
 http://linuxwireless.sipsolutions.net/en/users/Download/__v115.html
 download archive compat-wireless
