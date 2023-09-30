@@ -6,6 +6,8 @@ date : 2023-09-19
 # Intro
 
 Ce post décrit comment sniffer facilement les Probe Requests émises par des Wifi devices à promixité avec Kali.
+Le contenu de ce post est écrit en français, parfois en anglais, voire même en franglais... Il s'agit ici plus de tech notes personnelles que d'un véritable article.
+Ceci explique cela ;-)
 
 # Pré requis
 ## hardware
@@ -45,5 +47,20 @@ http://linuxwireless.sipsolutions.net/en/users/Download/__v115.html
     - ./scripts/driver-select atheros (example for atheros)
     - make
     - sudo make install
+ 
+#### Connecter l'adapter à la VM Kali
+Finalement, il faut connecter l'adapter à notre VM via le menu VirtualBox Périphériques>USB.
+Pour constater que ce soit ok, on peut faire un ifconfig. Il devrait y avoir un interface wlanX
 
+# Let's sniffing our first probe requests
+Nous allons utiliser airmon-ng et airodump-ng pour sniffer les probe requests. Nous verrons ensuite comment traiter plus efficacement ces données.
+## Switch adapter in monitor mode
+```
+sudo airmon-ng wlanX start
+```
+after this command, you shouldn't see anymore wlan0 but a new one wlan0mon. Let's check with ```ifconfig``` command
+
+## Sniffing
+```
+sudo airodump-ng wlan0mon
 
