@@ -21,4 +21,8 @@ Le contenu est relativement similaire mais plus complet. Ensuite, chaque valeur 
 
 # Reverse Enginneering Gallery v.14.01.04.2
 
+## Installation de Jadx
+https://github.com/skylot/jadx
 
+## Chercher les opérations d'effacement
+Après avoir décompiler l'apk, un type enum "TrashLogType" est vite trouvé (com.samsung.android.gallery.module.trash.abstraction), il enumère tous les types d'effacement à loguer, soit ceux que l'on retrouve dans la table "log" (DELETE_SINGLE, MOVE_TO_TRASH_SINGLE). En remontant les appels, on trouve que la classe qui nous intéresse est TrashHelper, qui utilise la classe TrashLogger pour construire la "string" à écrire dans la base de données.
