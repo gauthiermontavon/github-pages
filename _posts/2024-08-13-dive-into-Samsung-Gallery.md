@@ -17,7 +17,7 @@ alors que la version 14.01.04.2 contient :
 ```
 [MOVE_TO_TRASH_SINGLE] Req Total[1] LI[1] CI[0] LCI[0] LV[0] CV[0] LCV[0] Success LI[1] CI[0] LCI[0] LV[0] CV[0] LCV[0] Fail LI[0] CI[0] LCI[0] LV[0] CV[0] LCV[0] FP[ #G$E2XK5HUAG8VFpcuF5KH7xHWhfyAxA3nnpyXJ5SUhavUhBB7QENQ+kBDyzvAg5C6QsRGa1UF0HpAAtF9A==  ] PP[ #G$E35b/e67itzeHlqcfxpq3e4a7jmquOj+PJ5Y/L6a++yw==  ] LD[1] CD[0] MF[0] AB[0] ABR[false] RSS[0] [location://timeline?position=174&media_item=data%3A%2F%2FmediaItem%2F-309796036&from_expand=false]
 ```
-Le contenu est relativement similaire mais plus complet. Ensuite, chaque valeur paraît être préfixée par un acronyme, à l'exception de la première valeur ([MOVE_TO_TRASH_SINGLE]) et de la dernière valeur (location://). Finalement le contenu codée en base64 est plus court dans la nouvelle version, ou alors réparti dans les clés FP (FilePath?) et PP (??). Ces valeurs semblent être préfixées de "_#G$" et suffixées de "__"
+Le contenu est relativement similaire mais plus complet dans la version 14.01.04.02. Ensuite, chaque valeur paraît être préfixée par un acronyme, à l'exception de la première valeur ([MOVE_TO_TRASH_SINGLE]) et de la dernière valeur (location://). Finalement le contenu codée en base64 est plus court dans la nouvelle version, ou alors réparti dans les clés FP (FilePath?) et PP (??). Ces valeurs semblent être préfixées de "_#G$" et suffixées de "__"
 
 # Reverse Enginneering Gallery v.14.01.04.2
 
@@ -26,4 +26,19 @@ https://github.com/skylot/jadx
 
 ## Chercher les opérations d'effacement
 Après avoir décompiler l'apk, un type enum "TrashLogType" est vite trouvé (com.samsung.android.gallery.module.trash.abstraction), il enumère tous les types d'effacement à loguer, soit ceux que l'on retrouve dans la table "log" (DELETE_SINGLE, MOVE_TO_TRASH_SINGLE). En remontant les appels, on trouve que la classe qui nous intéresse est TrashHelper, qui utilise la classe TrashLogger pour construire la "string" à écrire dans la base de données.
+
+Finalement, comme dans l'article "Cheeky4n6monkey", la classe Logger.getEncodedString(...), appelée TrashDeleteLogger.getDetail, contient l'algorithme d'encodage des données. FP= FilePath , PP= ParentPath
+(int i10 => Random number 0-4).
+```
+    public static String encodeV2(String str, int i10) {
+        if (TextUtils.isEmpty(str)) {
+            return "null";
+        }
+        return " #G$E" + i10 + Base64.getEncoder().encodeToString(xorWithKey(str.getBytes(), sEncV2Key[i10])) + " ";
+    }
+
+```
+
 ### to be continued
+
+
