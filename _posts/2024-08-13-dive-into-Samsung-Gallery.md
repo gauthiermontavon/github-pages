@@ -39,6 +39,35 @@ Finalement, comme dans l'article "Cheeky4n6monkey", la classe Logger.getEncodedS
 
 ```
 
+sEncV2Key est un tableau de tableaux de byte qui contient plusieurs clé d'encodage utilisé pour faire un XOR avec le texte, le tout encodé en base64. Ainsi les données contenues dans FP et PP sont composées de :
+#G$E<span style="color:Tomato">i</span>ENCODED_STRING
+
+```
+EncV2Key = new byte[][]
+{
+	new byte[]{17, 34, -1, -33}, //11 22 ff df
+	new byte[]{-33, 52, 34, -47}, //df 34 22 D1
+	new byte[]{115, -35, 51, 63}, //73 dd 33 3f
+	new byte[]{-54, -52, -86, -124}, //ca cc  aa 84
+	new byte[]{21, 33, -33, -33}, //15 21 df df
+	new byte[]{81, 18, -1, -3}, //51 12 ff fd
+	new byte[]{52, 51, 63, 115}, //34 33 3f 73
+	new byte[]{95, -14, 31, -22} //5F f2 1f ea
+};
+```
+Pour un usage et une lecture plus pratique dans le futur script python, je le convertis directement en tableau de valeur hexa décimal:
+
+```
+EncV2key = [
+    '1122ffdf',
+    'df3422d1',
+    '73dd333f',
+    'caccaa84',
+    '1521dfdf',
+    '5112fffd',
+    '34333f73',
+    '5ff21fea']
+
 ### to be continued
 
 
